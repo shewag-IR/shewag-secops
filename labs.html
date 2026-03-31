@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Labs | shewag-secops — Blue Team & SOC Training</title>
+  <meta name="description" content="Browse all Blue Team and SOC training labs. Filter by difficulty, topic, and skill area. All labs are free and downloadable." />
+  <meta name="keywords" content="SOC labs, blue team labs, SIEM training, incident response labs, free cybersecurity labs" />
+  <link rel="canonical" href="https://shewag-secops.online/labs.html" />
+  <meta property="og:title"       content="Labs | shewag-secops" />
+  <meta property="og:description" content="Browse all hands-on Blue Team and SOC training labs." />
+  <meta property="og:url"         content="https://shewag-secops.online/labs.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+
+<div class="page-hero" style="padding-bottom:60px;border-bottom:1px solid var(--border);margin-bottom:60px">
+  <div class="container">
+    <div class="section-label" style="margin-top:20px">Training Labs</div>
+    <h1 style="font-size:clamp(2rem,4vw,3rem);margin-bottom:12px">All Labs</h1>
+    <p style="color:var(--text-secondary);max-width:540px;font-size:1.05rem">
+      Hands-on, downloadable cybersecurity labs for Blue Team defenders. Filter by difficulty or topic area.
+    </p>
+  </div>
+</div>
+
+<section style="padding-top:0">
+  <div class="container">
+    <!-- Filters -->
+    <div style="margin-bottom:12px">
+      <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;">Filter by difficulty:</span>
+    </div>
+    <div class="filter-bar" style="margin-bottom:10px">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="beginner">Beginner</button>
+      <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+      <button class="filter-btn" data-filter="advanced">Advanced</button>
+    </div>
+    <div style="margin-bottom:12px;margin-top:20px">
+      <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--text-muted);letter-spacing:0.1em;text-transform:uppercase;">Filter by topic:</span>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-btn active" data-filter="all">All Topics</button>
+      <button class="filter-btn" data-filter="soc">SOC</button>
+      <button class="filter-btn" data-filter="siem">SIEM</button>
+      <button class="filter-btn" data-filter="ir">IR</button>
+      <button class="filter-btn" data-filter="dfir">DFIR</button>
+      <button class="filter-btn" data-filter="detection">Detection</button>
+    </div>
+
+    <div style="margin: 36px 0 16px; font-family:var(--font-mono); font-size:0.78rem; color:var(--text-muted)">
+      Showing <span style="color:var(--cyan)">3</span> labs
+    </div>
+
+    <!-- Labs Grid -->
+    <div class="labs-grid">
+
+      <!-- Lab 1 -->
+      <div class="lab-card" data-tags="soc siem detection beginner">
+        <div class="lab-card-header">
+          <div class="lab-card-title">SOC Alert Triage</div>
+          <span class="badge badge-beginner">Beginner</span>
+        </div>
+        <div class="lab-card-meta">
+          <span class="badge badge-tag">SOC</span>
+          <span class="badge badge-tag">SIEM</span>
+          <span class="badge badge-soc">Detection</span>
+        </div>
+        <p class="lab-card-desc">
+          Learn to triage alerts in a simulated SOC environment. Analyze Splunk dashboards, correlate events, and identify true vs false positives using realistic PCAP and log data.
+        </p>
+        <div class="lab-card-footer">
+          <div class="lab-card-time">⏱ 45–60 min</div>
+          <a href="labs/soc-alert-triage.html" class="btn btn-outline" style="padding:7px 16px;font-size:0.82rem">Open Lab →</a>
+        </div>
+      </div>
+
+      <!-- Lab 2 -->
+      <div class="lab-card" data-tags="soc ir detection windows intermediate">
+        <div class="lab-card-header">
+          <div class="lab-card-title">RDP Brute Force Detection</div>
+          <span class="badge badge-intermediate">Intermediate</span>
+        </div>
+        <div class="lab-card-meta">
+          <span class="badge badge-tag">SOC</span>
+          <span class="badge badge-tag">IR</span>
+          <span class="badge badge-soc">Windows</span>
+        </div>
+        <p class="lab-card-desc">
+          Detect and respond to an RDP brute force attack using Windows Event Logs and Splunk. Identify attacker patterns, build detection rules, and simulate initial containment steps.
+        </p>
+        <div class="lab-card-footer">
+          <div class="lab-card-time">⏱ 60–90 min</div>
+          <a href="labs/rdp-brute-force.html" class="btn btn-outline" style="padding:7px 16px;font-size:0.82rem">Open Lab →</a>
+        </div>
+      </div>
+
+      <!-- Lab 3 -->
+      <div class="lab-card" data-tags="dfir malware powershell advanced">
+        <div class="lab-card-header">
+          <div class="lab-card-title">Suspicious PowerShell Analysis</div>
+          <span class="badge badge-advanced">Advanced</span>
+        </div>
+        <div class="lab-card-meta">
+          <span class="badge badge-tag">DFIR</span>
+          <span class="badge badge-tag">Malware</span>
+          <span class="badge badge-soc">PowerShell</span>
+        </div>
+        <p class="lab-card-desc">
+          Analyze obfuscated PowerShell scripts and memory artifacts. Understand living-off-the-land techniques, decode malicious payloads, and build detection logic.
+        </p>
+        <div class="lab-card-footer">
+          <div class="lab-card-time">⏱ 90–120 min</div>
+          <a href="labs/suspicious-powershell.html" class="btn btn-outline" style="padding:7px 16px;font-size:0.82rem">Open Lab →</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Coming soon placeholder -->
+    <div style="margin-top:48px;padding:32px;background:var(--bg-card);border:1px dashed var(--border);border-radius:10px;text-align:center">
+      <p style="font-family:var(--font-mono);font-size:0.85rem;color:var(--text-muted)">
+        // More labs in development — <a href="contact.html" style="color:var(--cyan)">suggest a topic</a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script src="assets/js/components.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>

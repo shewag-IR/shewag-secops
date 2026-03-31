@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog & Writeups | shewag-secops</title>
+  <meta name="description" content="Blue Team blog posts, lab writeups, detection engineering tips, and SOC analyst guides from shewag-secops." />
+  <meta name="keywords" content="SOC blog, blue team writeups, cybersecurity blog, detection engineering, incident response guides" />
+  <link rel="canonical" href="https://shewag-secops.online/blog.html" />
+  <meta property="og:title" content="Blog & Writeups | shewag-secops" />
+  <meta property="og:url"   content="https://shewag-secops.online/blog.html" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>" />
+  <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body>
+
+<div class="page-hero">
+  <div class="container">
+    <div class="section-label">Blog & Writeups</div>
+    <h1 style="font-size:clamp(2rem,4vw,3rem);margin-bottom:12px">Ops Room Notes</h1>
+    <p style="color:var(--text-secondary);max-width:540px;font-size:1.05rem">Detection tips, lab writeups, tool guides, and Blue Team insights from the field.</p>
+  </div>
+</div>
+
+<section style="padding-top:0">
+  <div class="container">
+    <!-- Filter -->
+    <div class="filter-bar" style="margin-bottom:36px">
+      <button class="blog-filter-btn filter-btn active" data-filter="all">All</button>
+      <button class="blog-filter-btn filter-btn" data-filter="soc">SOC</button>
+      <button class="blog-filter-btn filter-btn" data-filter="detection">Detection</button>
+      <button class="blog-filter-btn filter-btn" data-filter="dfir">DFIR</button>
+      <button class="blog-filter-btn filter-btn" data-filter="tools">Tools</button>
+      <button class="blog-filter-btn filter-btn" data-filter="career">Career</button>
+    </div>
+
+    <div class="blog-grid">
+
+      <div class="blog-card" data-category="soc">
+        <div class="blog-card-date">2024-12-15</div>
+        <div class="blog-card-title">How to Build a Home SOC Lab for Under $0</div>
+        <p class="blog-card-excerpt">A complete guide to building a functional SOC lab using VirtualBox, Splunk Free, and open-source tools — all at zero cost.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <div class="blog-card-tags"><span class="badge badge-tag">SOC</span><span class="badge badge-tag">Lab Setup</span></div>
+          <span class="read-more">Read → </span>
+        </div>
+      </div>
+
+      <div class="blog-card" data-category="detection">
+        <div class="blog-card-date">2024-12-08</div>
+        <div class="blog-card-title">Detecting Cobalt Strike Beacons with Splunk SPL</div>
+        <p class="blog-card-excerpt">Step-by-step detection methodology using SPL queries to identify Cobalt Strike C2 traffic patterns in network logs.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <div class="blog-card-tags"><span class="badge badge-tag">Detection</span><span class="badge badge-tag">SIEM</span></div>
+          <span class="read-more">Read →</span>
+        </div>
+      </div>
+
+      <div class="blog-card" data-category="soc">
+        <div class="blog-card-date">2024-11-28</div>
+        <div class="blog-card-title">20 Windows Event IDs Every SOC Analyst Must Know</div>
+        <p class="blog-card-excerpt">A practical reference covering the most critical Windows Event IDs for threat detection and incident response workflows.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <div class="blog-card-tags"><span class="badge badge-tag">Windows</span><span class="badge badge-tag">DFIR</span></div>
+          <span class="read-more">Read →</span>
+        </div>
+      </div>
+
+      <div class="blog-card" data-category="dfir">
+        <div class="blog-card-date">2024-11-20</div>
+        <div class="blog-card-title">PowerShell Obfuscation: A Defender's Decoding Guide</div>
+        <p class="blog-card-excerpt">How attackers obfuscate PowerShell and how defenders can decode, detect, and alert on obfuscated execution at scale.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <div class="blog-card-tags"><span class="badge badge-tag">PowerShell</span><span class="badge badge-tag">Malware</span></div>
+          <span class="read-more">Read →</span>
+        </div>
+      </div>
+
+      <div class="blog-card" data-category="tools">
+        <div class="blog-card-date">2024-11-12</div>
+        <div class="blog-card-title">Wireshark for SOC Analysts: 10 Essential Filters</div>
+        <p class="blog-card-excerpt">The Wireshark display filters every SOC analyst should have memorised, with real examples from network investigations.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <div class="blog-card-tags"><span class="badge badge-tag">Wireshark</span><span class="badge badge-tag">Network</span></div>
+          <span class="read-more">Read →</span>
+        </div>
+      </div>
+
+      <div class="blog-card" data-category="career">
+        <div class="blog-card-date">2024-11-05</div>
+        <div class="blog-card-title">Breaking Into SOC: A Realistic Roadmap for 2025</div>
+        <p class="blog-card-excerpt">No fluff. An honest guide on skills, certs, and labs that actually help you land a Tier-1 SOC analyst role without a degree.</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:14px">
+          <div class="blog-card-tags"><span class="badge badge-tag">Career</span><span class="badge badge-tag">Beginner</span></div>
+          <span class="read-more">Read →</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Newsletter / subscribe note -->
+    <div style="margin-top:60px;background:var(--bg-card);border:1px solid var(--border);border-radius:12px;padding:36px;text-align:center">
+      <div style="font-family:var(--font-mono);font-size:0.75rem;color:var(--cyan);letter-spacing:0.15em;margin-bottom:10px">// STAY UPDATED</div>
+      <h3 style="font-family:var(--font-head);font-size:1.4rem;margin-bottom:10px">New lab or writeup every 2 weeks</h3>
+      <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:20px">Follow on GitHub or Twitter/X to get notified when new content drops.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a href="https://github.com/shewag-secops" target="_blank" rel="noopener" class="btn btn-outline">GitHub</a>
+        <a href="https://twitter.com/shewag_secops"  target="_blank" rel="noopener" class="btn btn-outline">Twitter / X</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script src="assets/js/components.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
