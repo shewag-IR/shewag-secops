@@ -55,6 +55,17 @@ shewag-secops/
 
 ---
 
+## Tools I Am Actively Practicing
+
+| Tool | Focus | Status |
+|------|-------|--------|
+| Splunk Enterprise | Log analysis, SPL, dashboards, alerts | 🟢 Active |
+| Wazuh SIEM/XDR | Agent deployment, FIM, custom rules | 🟢 Active |
+| Microsoft Sentinel | KQL, analytics rules, incident response | 🟡 Building |
+| Kali Linux | Attack simulation for detection practice | 🔜 Month 2 |
+
+---
+
 ## My Other Projects
 
 | Project | What It Is | Link |
